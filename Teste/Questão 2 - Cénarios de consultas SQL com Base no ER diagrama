@@ -1,0 +1,79 @@
+Cénarios de teste de dados, com base em SQL
+Descrevendo com base na interface do diagrama
+
+DADOS
+1- PROFESSOR 
+2- DISCIPLINA
+3- ALUNO
+4- RELAÇÔES
+
+Ao analisar o cenários diagramal entendesse que alternativa para melhor dados como resposta, abaixo:
+
+a) Listar o nome de todos os alunos matriculados na disciplina de Cálculo do professor João.
+   -Filtrar a disciplina com nome = "Calculo".
+   -Encontrar o professor com nome = "Jõao".
+   -Usar a tabela 'LEciona' para associar o professor à disciplina.
+   -Usar a tabela 'CURSA' para associar os alunos à disciplina.
+
+Tabela de SQL 1:
+SELECT DISTINCT A.nome AS Aluno
+FROM ALUNO A
+JOIN CURSA C ON A.coda = C.coda
+JOIN DISCIPLINA D ON C.codd = D.codd
+JOIN LECONA L ON D.codd = L.codd
+JOIN PROFESSOR P ON L.codp = P.codp
+WHERE D.nome = 'Cálculo' AND P.nome = 'João';
+
+b) Exibir a quantidade de alunos por disciplinas
+
+Análise :
+Contar o número de alunos (ALUNO) que cursam cada disciplina (DISCIPLINA).
+Usar a tabela 'CURSA' para associar alunos às disciplinas.
+
+Tabela de SQL 2:
+SELECT D.nome AS Disciplina, COUNT(C.coda) AS Total_Alunos
+FROM DISCIPLINA D
+LEFT JOIN CURSA C ON D.codd = C.codd
+GROUP BY D.nome;
+
+c) Listar as disciplinas que todos os professores lecionam
+
+Análise :
+Uma disciplina é lecionada por todos os professores se ela estiver presente em todas as combinações possíveis de (PROFESSOR, DISCIPLINA) na tabela LECONA.
+Podemos usar uma subconsulta para verificar se cada disciplina está associada a todos os professores.
+
+Tabela de SQL 3:
+SELECT DISTINCT D.nome AS Disciplina
+FROM DISCIPLINA D
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM PROFESSOR P
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM LECONA L
+        WHERE L.codd = D.codd AND L.codp = P.codp
+    )
+);
+
+d) Exibir o total de professores
+
+Análise :
+Contar o número total de registros na tabela PROFESSOR.
+
+Tabela de SQL 4:
+SELECT COUNT(*) AS Total_Professores
+FROM PROFESSOR;
+
+e) Listar todos os alunos que cursaram alguma disciplina do ano 2000 até 2020
+Análise :
+Filtrar as disciplinas com ano entre 2000 e 2020.
+Usar a tabela CURSA para associar os alunos às disciplinas filtradas.
+
+Tabela de SQL 5:
+SELECT DISTINCT A.nome AS Aluno
+FROM ALUNO A
+JOIN CURSA C ON A.coda = C.coda
+JOIN DISCIPLINA D ON C.codd = D.codd
+WHERE D.ano BETWEEN 2000 AND 2020;
+
+
