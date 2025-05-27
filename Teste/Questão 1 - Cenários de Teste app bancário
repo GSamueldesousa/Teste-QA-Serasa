@@ -1,0 +1,173 @@
+Resposta para a Questão 1: 
+Cenários de Teste para o Aplicativo Bancário (Banco XYZ)
+
+Análise da Interface
+A imagem apresenta uma tela de transferência de valores entre correntistas no aplicativo bancário 
+"Banco XYZ". 
+
+A interface inclui os seguintes elementos:
+Título: "Transferência de valores entre correntistas".
+
+Saldo atual: R$ 200,00.
+Campos de entrada:
+Cliente destino: Campo para inserir o destinatário da transferência.
+Valor: Campo para inserir o valor a ser transferido.
+Data de efetivação: Campo para definir a data em que a transferência será realizada.
+Botões:
+Transferir: Para confirmar a transferência.
+Cancelar: Para cancelar a operação.
+
+Com essa base nessa interface, vamos especificar cenários de teste e 
+premissas adotadas para validar a funcionalidade de transferência de valores.
+
+
+
+Cenários de Testes
+
+1. Cenários Positivos
+Estes cenários testam as condições nas quais a transferência deve funcionar corretamente.
+
+Cenário 1: Transferência com saldo suficiente
+
+Entrada:
+Cliente destino: `123456789` (conta válida).
+Valor: 'R$ 100,00'.
+Data de efetivação: Hoje ou futura.
+Saída Esperada:
+Transferência realizada com sucesso.
+Saldo atualizado para 'R$ 100,00'.
+Mensagem de confirmação exibida.
+
+
+Cenário 2: Transferência agendada para data futura.
+
+Entrada:
+Cliente destino: '123456789' (conta válida).
+Valor: 'R$ 50,00'.
+Data de efetivação: Uma data futura (exemplo: amanhã).
+
+Saída Esperada:
+Transferência agendada com sucesso.
+Confirmação de que a transferência será efetuada na data escolhida.
+Saldo não é atualizado imediatamente.
+
+Cenário 3: Transferência mínima
+
+Entrada:
+Cliente destino: '123456789' (conta válida).
+Valor: O valor mínimo permitido pelo banco (por exemplo, 'R$1,00').
+Data de efetivação: Hoje.
+
+Saída Esperada:
+Transferência realizada com sucesso.
+Saldo atualizado corretamente.
+
+
+2. Cenários Negativos
+Estes cenários testam as condições nas quais a transferência deve falhar.
+
+Cenário 4: Transferência com saldo insuficiente.
+
+Entrada:
+Cliente destino: `123456789` (conta válida).
+Valor: 'R$300,00' (maior que o saldo disponível).
+Data de efetivação: Hoje.
+
+Saída Esperada:
+Mensagem de erro indicando que o saldo é insuficiente.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+Cenário 5: Cliente destino invalido
+
+Entrada:
+Cliente destino: '987654321' (conta inexistente ou invalida).
+Valor: 'R$100,00'.
+Data de efetivação: Hoje.
+
+Saída Esperada:
+Mensagem de erro indicando que o cliente destino é invalido.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+Cenário 6: Valor invalido
+
+Entrada:
+Cliente destino: '123456789' (conta válida).
+Valor: 'R$-100,00' (valor negativo) ou 'R$0,00' (valor zero).
+Data de efetivação: Hoje.
+
+Saída Esperada:
+Mensagem de erro indicando que o valor é invalido.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+Cenário 7: Data de efetivação invalida
+
+Entrada:
+Cliente destino: '123456789' (conta válida).
+Valor: 'R$100,00'.
+Data de efetivação: Uma data passada.
+
+Saída Esperada:
+Mensagem de erro indicando que a data de efetivação é invalida.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+
+3. Cenários de Exceções
+Estes cenários testam situações incomuns ou limites 
+de sistemas
+
+Cenário 8: Campos obrigatórios vazios
+
+Entrada:
+Cliente destino: Vazio.
+Valor: Vazio.
+Data de efetivação: Vazio.
+
+Saída Esperada:
+Mensagens de erro indicando que todos os campos são obrigatórios.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+Cenário 9: Valores muito grandes
+
+Entrada:
+Cliente destino: '123456789' (conta válida).
+Valor: Um valor extremamente alto (acima limite permitido pelo banco).
+Data de efetivação: Hoje.
+
+Saída Esperada:
+Mensagem de erro indicando que o valor excede o limite permitido.
+Transferência não realizada.
+Saldo permanece inalterado.
+
+
+Premissas Adotadas
+1. Conexão à Internet: O aplicativo está conectado à internet durante os testes.
+2. Autenticação: O usuário já está autenticado no aplicativo.
+3. Validação de Dados: O sistema valida os dados de entrada antes de processar qualquer operação.
+4. Saldo Disponível: O saldo de usuário é verificado antes de realizar a transferência.
+5. Formato de Entrada: Os campos aceitam apenas entradas numéricas e alfanuméricas válidas.
+6. Limites de Sistema: O sistema impõe limites para valores máximos e mínimos de transferência.
+7. Data de Efetivação: O campo de data permite datas futuras, mas não passadas.
+8. Contas Válidas: As contas de destino devem estar ativas e existentes no banco.
+
+
+
+Resumo dos Cenários
+| Funcionalidade           | Cenário                                                                   | Resultado Esperado                                                                  |
+|--------------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| Transferência            | Transferência com saldo suficiente                                        | Transferência bem-sucedida e saldo atualizado.                                      |
+|                          | Transferência agendada para data futura                                   | Transferência agendada e confirmada para a data futura.                             |
+|                          | Transferência mínima                                                      | Transferência bem-sucedida com o menor valor permitido.                             |
+|                          | Transferência com saldo insuficiente                                      | Mensagem de erro indicando saldo insuficiente.                                      |
+|                          | Cliente destino invalido                                                  | Mensagem de erro indicando conta de destino invalida.                               |
+|                          | Valor invalido                                                            | Mensagem de erro indicando valor incorreto (negativo, zero, etc.).                  |
+|                          | Data de efetivação invalida                                               | Mensagem de erro indicando data invalida (passada).                                 |
+|                          | Campos obrigatórios vazios                                                | Mensagens de erro indicando campos obrigatórios não preenchidos.                    |
+|                          | Valores muito grandes                                                     | Mensagem de erro indicando valor acima de limite permitido.                         |
+|--------------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+
+
