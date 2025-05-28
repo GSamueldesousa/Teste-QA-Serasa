@@ -1,5 +1,5 @@
-const apiKey = Cypress.env('TRELLO_API_KEY');
-const apiToken = Cypress.env('TRELLO_API_TOKEN');
+const apiKey = Cypress.env TRELLO_API_KEY=833762f363fc8aef60a0d8be80b95180TRELLO_API_KEY=833762f363fc8aef60a0d8be80b95180
+const apiToken = Cypress.env TRELLO_API_TOKEN=ATTA9f26e93cf073552e6a12f8a63a8a03ceb99922d07335c8594cbdaa53982c9862B4AB31C6
 
 describe('Testes de API Trello', () => {
   let boardId;
